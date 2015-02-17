@@ -19,11 +19,13 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         getTimeline()
-
+        
+        // pull to refresh
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("getTimeline"), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
         
+        // resize cells according to the text they hold
         self.tableView.estimatedRowHeight = 90
         self.tableView.rowHeight = UITableViewAutomaticDimension
     }
@@ -33,6 +35,7 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
+    // tweet
     @IBAction func pressComposeButton() {
         if ( SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter )) {
             var tweetSheet:SLComposeViewController = SLComposeViewController( forServiceType: SLServiceTypeTwitter )
@@ -43,14 +46,13 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
+
+    // get twitter account
     private func getAccount(){
-        // 認証するアカウントのタイプを選択（他にはFacebookやWeiboなどがある）
         var accountStore = ACAccountStore()
         let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
         accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (granted:Bool, error:NSError?) -> Void in
             if error != nil {
-                // エラー処理
                 println("error! \(error)")
                 return
             }
@@ -70,6 +72,7 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
         }
     }
     
+    // get user's home timeline
     func getTimeline() {
         if twAccount == nil {
             getAccount()
@@ -84,25 +87,20 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
             "trim_user" : "1",
             "count" : "20"]*/
         
-        // GET/POSTやパラメータに気をつけてリクエスト情報を生成
         let request = SLRequest(
             forServiceType: SLServiceTypeTwitter,
             requestMethod: SLRequestMethod.GET,
             URL: URL,
             parameters: nil)
         
-        // 認証したアカウントをセット
         request.account = self.twAccount
         
-        // APIコールを実行
         request.performRequestWithHandler { (responseData, urlResponse, error) -> Void in
             if error != nil {
                 println("error is \(error)")
             } else {
-                // 結果の表示
-                let result = NSJSONSerialization.JSONObjectWithData(responseData,options: .AllowFragments,error: nil) as NSArray
-                println("result is \(result)")
-                self.dataSource = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableLeaves, error: nil) as [AnyObject]
+                self.dataSource = NSJSONSerialization.JSONObjectWithData(responseData,options: .AllowFragments,error: nil) as NSArray
+                //self.dataSource = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableLeaves, error: nil) as [AnyObject]
                 if self.dataSource.count != 0 {
                     dispatch_async(dispatch_get_main_queue()) {
                         self.tweetTableView.reloadData()
@@ -141,6 +139,7 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
         cell.layoutIfNeeded()
     }
     
+    // make temporary image
     private func getUIImageFromUIView() -> UIImage
     {
         let size = CGSize(width: 40, height: 40)
