@@ -118,24 +118,22 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tweetTableView.dequeueReusableCellWithIdentifier("Cell") as UITableViewCell
+        let cell = self.tweetTableView.dequeueReusableCellWithIdentifier("Cell") as CustomCell
         updateCell(cell, cellForRowAtIndexPath: indexPath)
         return cell
     }
     
-    private func updateCell( cell : UITableViewCell, cellForRowAtIndexPath indexPath : NSIndexPath) {
+    private func updateCell( cell : CustomCell, cellForRowAtIndexPath indexPath : NSIndexPath) {
         let row = indexPath.row
         let tweet = self.dataSource[row] as NSDictionary
 
-        cell.textLabel?.text = tweet.objectForKey("user")?.objectForKey("name") as NSString
-        cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = tweet.objectForKey("text") as NSString
-        cell.detailTextLabel?.numberOfLines = 0
+        cell.customTitleLabel?.text = tweet.objectForKey("user")?.objectForKey("name") as NSString
+        cell.customLabel?.text = tweet.objectForKey("text") as NSString
         cell.imageView?.image = getUIImageFromUIView()
         
         let url = NSURL(string:tweet.objectForKey("user")?.objectForKey("profile_image_url") as NSString)
         let req = NSURLRequest(URL:url!)
-        
+
         NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
             let image = UIImage(data:data)
             cell.imageView?.image = image
@@ -158,10 +156,11 @@ class TimelineViewController: UITableViewController, UITableViewDataSource, UITa
         return renderedImage;
     }
     
+    /*
     private func updateVisibleCells () {
         for cell in tweetTableView.visibleCells() {
-            updateCell(cell as UITableViewCell, cellForRowAtIndexPath: tweetTableView.indexPathForCell(cell as UITableViewCell)!)
+            updateCell(cell as CustomCell, cellForRowAtIndexPath: tweetTableView.indexPathForCell(cell as CustomCell)!)
         }
-    }
+    }*/
 }
 

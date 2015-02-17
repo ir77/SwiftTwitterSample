@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1BCFAD01A9375A0007F6367 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BCFACF1A9375A0007F6367 /* CustomCell.swift */; };
 		B1FF159A1A90CC30006F5B7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FF15991A90CC30006F5B7C /* AppDelegate.swift */; };
 		B1FF159C1A90CC30006F5B7C /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FF159B1A90CC30006F5B7C /* TimelineViewController.swift */; };
 		B1FF159F1A90CC30006F5B7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1FF159D1A90CC30006F5B7C /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1BCFACF1A9375A0007F6367 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomCell.swift; path = ../CustomCell.swift; sourceTree = "<group>"; };
 		B1FF15941A90CC30006F5B7C /* SwiftTwitterSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTwitterSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1FF15981A90CC30006F5B7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1FF15991A90CC30006F5B7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				B1FF15991A90CC30006F5B7C /* AppDelegate.swift */,
 				B1FF159B1A90CC30006F5B7C /* TimelineViewController.swift */,
 				B1FF159D1A90CC30006F5B7C /* Main.storyboard */,
+				B1BCFACF1A9375A0007F6367 /* CustomCell.swift */,
 				B1FF15A01A90CC30006F5B7C /* Images.xcassets */,
 				B1FF15A21A90CC30006F5B7C /* LaunchScreen.xib */,
 				B1FF15971A90CC30006F5B7C /* Supporting Files */,
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1FF159C1A90CC30006F5B7C /* TimelineViewController.swift in Sources */,
+				B1BCFAD01A9375A0007F6367 /* CustomCell.swift in Sources */,
 				B1FF159A1A90CC30006F5B7C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
